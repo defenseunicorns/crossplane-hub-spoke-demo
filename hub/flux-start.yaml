@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: crossplane-hub-spoke-demo
+  namespace: default
+spec:
+  interval: 1m
+  url: https://github.com/defenseunicorns/crossplane-hub-spoke-demo
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: office-clusters
+  namespace: default
+spec:
+  interval: 1m
+  path: "./spoke"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: crossplane-hub-spoke-demo
+  timeout: 1m
