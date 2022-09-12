@@ -23,7 +23,7 @@ spec:
     region: us-east-1
     k8sVersion: "1.22"
     subnetMatchLabels:
-      crossplane.io/claim-name: crossplane-eks-cluster-jim
+      crossplane.io/claim-name: jim-enclave
       crossplane.io/claim-namespace: default
       visibility: public
   compositionSelector:
