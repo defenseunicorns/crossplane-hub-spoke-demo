@@ -21,7 +21,7 @@ metadata:
 spec:
   parameters:
     region: us-east-1
-    k8sVersion: "1.23"
+    k8sVersion: "1.22"
     subnetMatchLabels:
       crossplane.io/claim-name: jim-enclave
       crossplane.io/claim-namespace: default
