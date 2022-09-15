@@ -39,7 +39,7 @@ spec:
   parameters:
     region: us-east-1
     clusterNameMatchLabels:
-      crossplane.io/claim-name: dwight-enclave
+      crossplane.io/claim-name: crossplane-eks-cluster-dwight
       crossplane.io/claim-namespace: default
     diskSize: 20
     instanceTypes:
@@ -48,6 +48,6 @@ spec:
     minNodeCount: 3
     maxNodeCount: 5
     subnetMatchLabels:
-      crossplane.io/claim-name: crossplane-eks-cluster-with-managed-nodegroup-example
+      crossplane.io/claim-name: dwight-enclave
       crossplane.io/claim-namespace: default
       visibility: public
