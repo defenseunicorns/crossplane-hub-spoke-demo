@@ -51,31 +51,3 @@ spec:
       crossplane.io/claim-name: jim-enclave
       crossplane.io/claim-namespace: default
       visibility: public
----
-apiVersion: helm.crossplane.io/v1beta1
-kind: Release
-metadata:
-  name: flux-example
-spec:
-# rollbackLimit: 3
-  forProvider:
-    chart:
-      name: flux2
-      repository: https://fluxcd-community.github.io/helm-charts
-      version: 1.3.0
-    namespace: init-system
-  providerConfigRef:
-    name: helm-provider
----
-apiVersion: kubernetes.crossplane.io/v1alpha1
-kind: Object
-metadata:
-  name: init-system
-spec:
-  forProvider:
-    manifest:
-      apiVersion: v1
-      kind: Namespace
-      metadata:
-  providerConfigRef:
-    name: kubernetes-provider
