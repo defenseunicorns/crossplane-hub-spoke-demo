@@ -15,7 +15,7 @@ spec:
     source: Secret
     secretRef:
       namespace: crossplane-system
-      name: kubeconfig-crossplane-eks-cluster-dwight-s8f5w
+      name: kubeconfig-crossplane-eks-cluster-dwight
       key: kubeconfig
 # identity:
 #   type: GoogleApplicationCredentials
@@ -33,7 +33,7 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: kubeconfig-crossplane-eks-cluster-dwight-s8f5w
+      name: kubeconfig-crossplane-eks-cluster-dwight
       namespace: crossplane-system
       key: kubeconfig
 # identity:
