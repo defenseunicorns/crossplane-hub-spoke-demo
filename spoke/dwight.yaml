@@ -1,7 +1,7 @@
 apiVersion: infra.bigbang.dev/v1alpha1
 kind: Enclave
 metadata:
-  name: dwight-enclave
+  name: crossplane-eks-cluster-with-managed-nodegroup-example
   namespace: default
 spec:
   parameters:
