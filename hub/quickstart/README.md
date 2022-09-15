@@ -108,6 +108,9 @@ NOTE: Recommend review of this build source to understand the specfic AWS VPC re
 
 kubectl get <`resource name` from kubectl get managed> -oyaml
 
+# Access Crossplane managed k8s cluster
+```k get secret -n crossplane-system <kubeconfig-crossplane-eks-cluster-dwight-8vbsp> --output jsonpath="{.data.kubeconfig}" | base64 -d > ~/.kube/config-dwight.bk```
+```export KUBECONFIG=~/.kube/config-dwight.bk```
 
 # Clean up resources
 
