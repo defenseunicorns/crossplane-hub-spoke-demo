@@ -68,7 +68,7 @@ spec:
 apiVersion: helm.crossplane.io/v1beta1
 kind: Release
 metadata:
-  name: flux-example
+  name: fluxv2
 spec:
 # rollbackLimit: 3
   forProvider:
@@ -96,7 +96,7 @@ spec:
 apiVersion: helm.crossplane.io/v1beta1
 kind: Release
 metadata:
-  name: flux-example
+  name: podinfo
 spec:
 # rollbackLimit: 3
   forProvider:
