@@ -12,3 +12,5 @@ resources:
 - provider-providerconfigs/controller-config.yaml
 - provider-providerconfigs/provider-config.yaml
 - provider-providerconfigs/provider.yaml
+- compositions-xrds/s3-bucket/compositeresourcedefinition.yaml
+- compositions-xrds/s3-bucket/composition.yaml
