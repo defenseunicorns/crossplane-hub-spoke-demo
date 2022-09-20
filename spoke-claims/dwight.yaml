@@ -192,12 +192,14 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: test
+  name: mysql-rds
 spec:
   forProvider:
     manifest:
       apiVersion: v1
-      kind: Namespace
+      data:
+        password: ajdxZ3ZQTVJ0eG1LY3Nwd1IyOGthWXhLWlA4
+      kind: Secret
       metadata:
   providerConfigRef:
     name: kubernetes-provider
