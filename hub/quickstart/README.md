@@ -1,5 +1,3 @@
-## NOTE: This is a work in progress. As of 2 Aug, resources are manually configured with AWS IAM role
-
 # Before You Begin
 
 - Install aws cli, eksctl, crossplane CLI, helm, flux, kubectl
