@@ -120,26 +120,26 @@ spec:
       metadata:
   providerConfigRef:
     name: kubernetes-provider
-# ---
-# apiVersion: databases.bigbang.dev/v1alpha1
-# kind: MySQLChildInstance
-# metadata:
-#   name: wordpress-mysql-rds
-#   namespace: default
-# spec:
-#   parameters:
-#     storageGB: 10
-#     region: us-east-1
-#     availabilityZone: us-east-1a
-#     dbName: wordpressdb
-#     dbInstanceClass: db.t3.medium
-#     dbSubnetGroupName: dwight-enclave-gq78z-8wnc2
-#     vpcId: vpc-0757e67d2aaa72fb7
-#   compositionSelector:
-#     matchLabels:
-#       provider: crossplane-provider-aws
-#   writeConnectionSecretToRef:
-#     name: mysql-rds
+---
+apiVersion: databases.bigbang.dev/v1alpha1
+kind: MySQLChildInstance
+metadata:
+  name: wordpress-mysql-rds
+  namespace: default
+spec:
+  parameters:
+    storageGB: 10
+    region: us-east-1
+    availabilityZone: us-east-1a
+    dbName: wordpressdb
+    dbInstanceClass: db.t3.medium
+    dbSubnetGroupName: dwight-enclave-gq78z-sxpnp
+    vpcId: vpc-0757e67d2aaa72fb7
+  compositionSelector:
+    matchLabels:
+      provider: crossplane-provider-aws
+  writeConnectionSecretToRef:
+    name: mysql-rds
 # ---
 # apiVersion: helm.crossplane.io/v1beta1
 # kind: Release
