@@ -193,7 +193,6 @@ apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
   name: mysql-rds
-  namespace: wordpress
 spec:
   forProvider:
     manifest:
@@ -202,6 +201,7 @@ spec:
         password: ajdxZ3ZQTVJ0eG1LY3Nwd1IyOGthWXhLWlA4
       kind: Secret
       metadata:
+        namespace: wordpress
   providerConfigRef:
     name: kubernetes-provider
 ---
