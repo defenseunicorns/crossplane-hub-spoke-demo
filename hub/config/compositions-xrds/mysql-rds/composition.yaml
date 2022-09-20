@@ -58,7 +58,7 @@ spec:
               matchControllerRef: true
           writeConnectionSecretToRef:
             namespace: crossplane-system
-            name: default
+            name: mysqladmin
       patches:
         - fromFieldPath: "metadata.uid"
           toFieldPath: "spec.writeConnectionSecretToRef.name"
