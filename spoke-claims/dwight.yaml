@@ -146,53 +146,6 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress-db-secret
-spec:
-  references:
-  # Use dependsOn to wait for the DB connection secret to exist
-  - dependsOn:
-      apiVersion: v1
-      kind: Secret
-      name: mysql-rds
-      namespace: default
-  - patchesFrom:
-      apiVersion: v1
-      kind: Secret
-      name: mysql-rds
-      namespace: defaut
-      fieldPath: data.passsword
-    toFieldPath: data.passsword
-  forProvider:
-    manifest:
-      apiVersion: v1
-      kind: Secret
-      metadata:
-        namespace: wordpress
-    # patches:
-    #   - fromFieldPath: "spec.parameters.clusterRef.id"
-    #     toFieldPath: "metadata.name"
-    #     transforms:
-    #     - type: string
-    #       string:
-    #         fmt: "%s-db-srv"
-    #   - fromFieldPath: "spec.parameters.clusterRef.id"
-    #     toFieldPath: "metadata.annotations[crossplane.io/external-name]"
-    #     transforms:
-    #     - type: string
-    #       string:
-    #         fmt: "%s-db-srv"
-    #   - fromFieldPath: "spec.parameters.clusterRef.id"
-    #     toFieldPath: "spec.references[0].dependsOn.name"
-    #     transforms:
-    #     - type: string
-    #       string:
-    #         fmt: "%s-db-srv"
-  providerConfigRef:
-    name: kubernetes-provider
----
-apiVersion: kubernetes.crossplane.io/v1alpha1
-kind: Object
-metadata:
   name: wordpress-git
 spec:
   forProvider:
