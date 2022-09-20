@@ -111,7 +111,7 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress
+  name: wordpress-ns
 spec:
   forProvider:
     manifest:
@@ -144,7 +144,7 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress
+  name: wordpress-git
 spec:
   forProvider:
     manifest:
@@ -164,14 +164,14 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress
+  name: wordpress-hr
 spec:
   forProvider:
     manifest:
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
-        name: wordpress-demo
+        name: wordpress
         namespace: wordpress
       spec:
         interval: 5m
