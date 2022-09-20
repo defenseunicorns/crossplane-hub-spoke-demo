@@ -111,7 +111,7 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress-ns
+  name: wordpress
 spec:
   forProvider:
     manifest:
@@ -144,7 +144,7 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress-git
+  name: wordpress
 spec:
   forProvider:
     manifest:
@@ -164,7 +164,7 @@ spec:
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
-  name: wordpress-hr
+  name: wordpress
 spec:
   forProvider:
     manifest:
