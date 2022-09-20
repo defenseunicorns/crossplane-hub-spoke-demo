@@ -1,5 +1,3 @@
-## NOTE: This is a work in progress. As of 2 Aug, resources are manually configured with AWS IAM role
-
 # Before You Begin
 
 - Install aws cli, eksctl, crossplane CLI, helm, flux, kubectl
@@ -22,27 +20,27 @@ helm repo update
 helm install crossplane --create-namespace --namespace crossplane-system crossplane-stable/crossplane
 ```
 
-# Install AWS Crossplane Provider and Controller
+# Install AWS, K8s & Helm Crossplane Provider and Controller
 
 - Apply AWS Controller Config for Provider (needed to credential workers)
 
-`kubectl apply -f controller-config.yaml`
+`kubectl apply -f hub/provider-providerconfigs/controller-config.yaml`
 
-- Apply Provider to use k8s Node IAM Role (create k8s service account for AWS)
+- Apply AWS, K8s & Helm Providers (create k8s service account for AWS)
 #similar to the AWS terraform registry
 
-`kubectl apply -f provider.yaml`
+`kubectl apply -f hub/provider-providerconfigs/provider.yaml`
 
 #wait for provider to reconcile
 `watch kubectl get providers`
 
 - Apply Provider Config configure for injected identity
-`kubectl apply -f provider-config.yaml`
+`kubectl apply -f hub/provider-providerconfigs/provider-config.yaml`
 
 `kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}"`
 
 
-# Credential EKS Cluster 
+# Credential EKS Cluster with IAM Role
 
 - Associate IAM OIDC Provider
 ```
@@ -68,32 +66,20 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
-# Configure AWS Infra Compositions
-
-- Install `Getting Started with AWS` Composition Package
-
-`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
+# Configure AWS Infra Compositions & Custom Resource Definitions (XRDs)
 
 - Install Custom Unicorn Infra Composition Package
 #similar to a terraform modules / vars
 
-Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
-NOTE: Recommend review of this build source to understand the specfic AWS VPC resources that will be provisioned by the applying the enclave.yaml custom resource in later steps.
-
-`kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws:0.0.6`
+`kubectl apply -f hub/compositions-xrds --recursive`
 
 - Ensure Packages are Installed / Healthy Before Proceeding
 
 `watch kubectl get pkg`
 
 
-# Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
+<!-- # Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
 #similar to terragrunt files which leverage vars 
-
-- RDS
-`kubectl apply -f db.yaml`
-
-`kubectl get rdsinstance -w`
 
 - VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
 `kubectl apply -f enclave.yaml`
@@ -125,3 +111,13 @@ kubectl get <`resource name` from kubectl get managed> -oyaml
 # Uninstall Crossplane
 
 https://crossplane.io/docs/v1.8/reference/uninstall.html#uninstalling
+
+# RDS Example
+
+- Install `Getting Started with AWS` Composition Package
+
+`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
+
+`kubectl apply -f db.yaml`
+
+`kubectl get rdsinstance -w` -->

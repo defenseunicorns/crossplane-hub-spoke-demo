@@ -22,3 +22,17 @@ spec:
     kind: GitRepository
     name: crossplane-hub-spoke-demo
   timeout: 1m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: hub-cluster
+  namespace: default
+spec:
+  interval: 1m
+  path: "./hub/config"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: crossplane-hub-spoke-demo
+  timeout: 1m
