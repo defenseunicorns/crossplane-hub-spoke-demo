@@ -140,18 +140,49 @@ spec:
       provider: crossplane-provider-aws
   writeConnectionSecretToRef:
     name: mysql-rds
-# ---
-# apiVersion: helm.crossplane.io/v1beta1
-# kind: Release
-# metadata:
-#   name: podinfo
-# spec:
-# # rollbackLimit: 3
-#   forProvider:
-#     chart:
-#       name: podinfo
-#       repository: bitnami/wordpress
-#       version: 6.2.0
-#     namespace: wordpress
-#   providerConfigRef:
-#     name: helm-provider
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: wordpress
+spec:
+  forProvider:
+    manifest:
+      apiVersion: source.toolkit.fluxcd.io/v1beta2
+      kind: GitRepository
+      metadata:
+        name: wordpress
+        namespace: wordpress
+      spec:
+        interval: 1m
+        url: https://github.com/defenseunicorns/crossplane-rds-wordpress-demo.git
+        ref:
+          branch: demo
+  providerConfigRef:
+    name: kubernetes-provider
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: wordpress
+spec:
+  forProvider:
+    manifest:
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: wordpress-demo
+        namespace: wordpress
+      spec:
+        interval: 5m
+        chart:
+          spec:
+            chart: wordpress
+            version: "15.2.2"
+            sourceRef:
+              kind: GitRepository
+              name: wordpress
+              namespace: wordpress
+            interval: 1m
+  providerConfigRef:
+    name: kubernetes-provider
