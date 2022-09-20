@@ -52,6 +52,28 @@ spec:
       crossplane.io/claim-namespace: default
       visibility: public
 ---
+apiVersion: databases.bigbang.dev/v1alpha1
+kind: MySQLChildInstance
+metadata:
+  name: wordpress-mysql-rds
+  namespace: default
+spec:
+  parameters:
+    storageGB: 10
+    region: us-east-1
+    availabilityZone: us-east-1a
+    dbName: wordpressdb
+    dbInstanceClass: db.t3.medium
+    dbSubnetGroupName: dwight-enclave-gq78z-sxpnp
+    vpcId: vpc-0757e67d2aaa72fb7
+  compositionSelector:
+    matchLabels:
+      provider: crossplane-provider-aws
+  writeConnectionSecretToRef:
+    name: mysql-rds
+
+#The following objects are being deployed to spoke cluster dwight
+---
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
 metadata:
@@ -120,26 +142,6 @@ spec:
       metadata:
   providerConfigRef:
     name: kubernetes-provider
----
-apiVersion: databases.bigbang.dev/v1alpha1
-kind: MySQLChildInstance
-metadata:
-  name: wordpress-mysql-rds
-  namespace: default
-spec:
-  parameters:
-    storageGB: 10
-    region: us-east-1
-    availabilityZone: us-east-1a
-    dbName: wordpressdb
-    dbInstanceClass: db.t3.medium
-    dbSubnetGroupName: dwight-enclave-gq78z-sxpnp
-    vpcId: vpc-0757e67d2aaa72fb7
-  compositionSelector:
-    matchLabels:
-      provider: crossplane-provider-aws
-  writeConnectionSecretToRef:
-    name: mysql-rds
 ---
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
