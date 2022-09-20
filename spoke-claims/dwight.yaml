@@ -188,3 +188,16 @@ spec:
             interval: 1m
   providerConfigRef:
     name: dwight-dwight-kubernetes-provider
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: test
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+  providerConfigRef:
+    name: dwight-kubernetes-provider
