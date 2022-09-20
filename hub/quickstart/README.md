@@ -22,13 +22,13 @@ helm repo update
 helm install crossplane --create-namespace --namespace crossplane-system crossplane-stable/crossplane
 ```
 
-# Install AWS Crossplane Provider and Controller
+# Install AWS, K8s & Helm Crossplane Provider and Controller
 
 - Apply AWS Controller Config for Provider (needed to credential workers)
 
 `kubectl apply -f controller-config.yaml`
 
-- Apply Provider to use k8s Node IAM Role (create k8s service account for AWS)
+- Apply AWS, K8s & Helm Providers (create k8s service account for AWS)
 #similar to the AWS terraform registry
 
 `kubectl apply -f provider.yaml`
@@ -42,7 +42,7 @@ helm install crossplane --create-namespace --namespace crossplane-system crosspl
 `kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}"`
 
 
-# Credential EKS Cluster 
+# Credential EKS Cluster with IAM Role
 
 - Associate IAM OIDC Provider
 ```
@@ -70,10 +70,6 @@ eksctl create iamserviceaccount \
 
 # Configure AWS Infra Compositions
 
-- Install `Getting Started with AWS` Composition Package
-
-`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
-
 - Install Custom Unicorn Infra Composition Package
 #similar to a terraform modules / vars
 
@@ -89,11 +85,6 @@ NOTE: Recommend review of this build source to understand the specfic AWS VPC re
 
 # Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
 #similar to terragrunt files which leverage vars 
-
-- RDS
-`kubectl apply -f db.yaml`
-
-`kubectl get rdsinstance -w`
 
 - VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
 `kubectl apply -f enclave.yaml`
@@ -125,3 +116,13 @@ kubectl get <`resource name` from kubectl get managed> -oyaml
 # Uninstall Crossplane
 
 https://crossplane.io/docs/v1.8/reference/uninstall.html#uninstalling
+
+# RDS Example
+
+- Install `Getting Started with AWS` Composition Package
+
+`kubectl crossplane install configuration registry.upbound.io/xp/getting-started-with-aws:v1.8.1`
+
+`kubectl apply -f db.yaml`
+
+`kubectl get rdsinstance -w`
