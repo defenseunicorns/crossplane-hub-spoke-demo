@@ -11,7 +11,7 @@
 #     availabilityZone3: us-east-1c
 #   compositionSelector:
 #     matchLabels:
-#       provider: aws
+#       provider: crossplane-provider-aws
 # ---
 # apiVersion: infra.bigbang.dev/v1alpha1
 # kind: EKSCluster

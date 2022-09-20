@@ -3,7 +3,7 @@ kind: Composition
 metadata:
   name: compositemysqlchildinstances.aws.bigbang.dev
   labels:
-    provider: aws
+    provider: crossplane-provider-aws
 spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:

@@ -4,7 +4,7 @@ kind: Composition
 metadata:
   name: xeksclusters.aws.infra.bigbang.dev
   labels:
-    provider: aws
+    provider: crossplane-provider-aws
 spec:
   compositeTypeRef:
     apiVersion: infra.bigbang.dev/v1alpha1

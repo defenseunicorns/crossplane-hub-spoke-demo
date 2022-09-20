@@ -3,7 +3,7 @@ kind: Configuration
 metadata:
   name: crossplane-config-aws-enclave
   annotations:
-    provider: aws
+    provider: crossplane-provider-aws
 spec:
   crossplane:
     version: ">=v1.4.0-0"
