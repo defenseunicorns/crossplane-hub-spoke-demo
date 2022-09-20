@@ -162,33 +162,33 @@ spec:
       namespace: defaut
       fieldPath: data.passsword
     toFieldPath: data.passsword
-    forProvider:
-      manifest:
-        apiVersion: v1
-        kind: Secret
-        metadata:
-          namespace: wordpress
-    providerConfigRef:
-      name: kubernetes-provider
-  patches:
-    - fromFieldPath: "spec.parameters.clusterRef.id"
-      toFieldPath: "metadata.name"
-      transforms:
-      - type: string
-        string:
-          fmt: "%s-db-srv"
-    - fromFieldPath: "spec.parameters.clusterRef.id"
-      toFieldPath: "metadata.annotations[crossplane.io/external-name]"
-      transforms:
-      - type: string
-        string:
-          fmt: "%s-db-srv"
-    - fromFieldPath: "spec.parameters.clusterRef.id"
-      toFieldPath: "spec.references[0].dependsOn.name"
-      transforms:
-      - type: string
-        string:
-          fmt: "%s-db-srv"
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        namespace: wordpress
+  providerConfigRef:
+    name: kubernetes-provider
+patches:
+  - fromFieldPath: "spec.parameters.clusterRef.id"
+    toFieldPath: "metadata.name"
+    transforms:
+    - type: string
+      string:
+        fmt: "%s-db-srv"
+  - fromFieldPath: "spec.parameters.clusterRef.id"
+    toFieldPath: "metadata.annotations[crossplane.io/external-name]"
+    transforms:
+    - type: string
+      string:
+        fmt: "%s-db-srv"
+  - fromFieldPath: "spec.parameters.clusterRef.id"
+    toFieldPath: "spec.references[0].dependsOn.name"
+    transforms:
+    - type: string
+      string:
+        fmt: "%s-db-srv"
 ---
 apiVersion: kubernetes.crossplane.io/v1alpha1
 kind: Object
