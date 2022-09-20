@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- compositions-xrds/crossplane.yaml
+- compositions-xrds/eks-cluster/compositeresourcedefinition.yaml
+- compositions-xrds/eks-cluster/composition.yaml
+- compositions-xrds/eks-managed-nodegroup/compositeresourcedefinition.yaml
+- compositions-xrds/eks-managed-nodegroup/composition.yaml
+- compositions-xrds/enclave/compositeresourcedefinition.yaml
+- compositions-xrds/enclave/composition.yaml
+- compositions-xrds/mysql-rds/compositeresourcedefinition.yaml
+- compositions-xrds/mysql-rds/composition.yaml
+- provider-providerconfigs/controller-config.yaml
+- provider-providerconfigs/provider-config.yaml
+- provider-providerconfigs/provider.yaml

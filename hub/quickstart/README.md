@@ -26,18 +26,18 @@ helm install crossplane --create-namespace --namespace crossplane-system crosspl
 
 - Apply AWS Controller Config for Provider (needed to credential workers)
 
-`kubectl apply -f controller-config.yaml`
+`kubectl apply -f hub/provider-providerconfigs/controller-config.yaml`
 
 - Apply AWS, K8s & Helm Providers (create k8s service account for AWS)
 #similar to the AWS terraform registry
 
-`kubectl apply -f provider.yaml`
+`kubectl apply -f hub/provider-providerconfigs/provider.yaml`
 
 #wait for provider to reconcile
 `watch kubectl get providers`
 
 - Apply Provider Config configure for injected identity
-`kubectl apply -f provider-config.yaml`
+`kubectl apply -f hub/provider-providerconfigs/provider-config.yaml`
 
 `kubectl get providers.pkg.crossplane.io crossplane-provider-aws -o jsonpath="{.status.currentRevision}"`
 
@@ -68,22 +68,19 @@ eksctl create iamserviceaccount \
 --approve
 ```
 
-# Configure AWS Infra Compositions
+# Configure AWS Infra Compositions & Custom Resource Definitions (XRDs)
 
 - Install Custom Unicorn Infra Composition Package
 #similar to a terraform modules / vars
 
-Build Source: https://github.com/defenseunicorns/crossplane-config-aws-enclave
-NOTE: Recommend review of this build source to understand the specfic AWS VPC resources that will be provisioned by the applying the enclave.yaml custom resource in later steps.
-
-`kubectl crossplane install configuration ghcr.io/defenseunicorns/crossplane-config-aws:0.0.6`
+`kubectl apply -f hub/compositions-xrds --recursive`
 
 - Ensure Packages are Installed / Healthy Before Proceeding
 
 `watch kubectl get pkg`
 
 
-# Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
+<!-- # Apply Resource Claims against our Compositions using the k8s Node IAM role which is credentialed to provision infra
 #similar to terragrunt files which leverage vars 
 
 - VPC, Subnets (pub & priv), IGW, NGW, RTB's & DB Subnet group
@@ -125,4 +122,4 @@ https://crossplane.io/docs/v1.8/reference/uninstall.html#uninstalling
 
 `kubectl apply -f db.yaml`
 
-`kubectl get rdsinstance -w`
+`kubectl get rdsinstance -w` -->
