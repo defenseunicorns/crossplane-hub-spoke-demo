@@ -203,3 +203,28 @@ spec:
   compositionSelector:
     matchLabels:
       provider: crossplane-provider-aws
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: dbpassword
+spec:
+  references:
+  # Use patchesFrom to patch field from other k8s resource to this object
+  - patchesFrom:
+      apiVersion: v1
+      kind: Secret
+      name: mysql-rds
+      namespace: default
+      fieldPath: data.password
+    toFieldPath: data.sample-value
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        namespace: wordpress
+      data:
+        password: sample-value
+  providerConfigRef:
+    name: kubernetes-provider
