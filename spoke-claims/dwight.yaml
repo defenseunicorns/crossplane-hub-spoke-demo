@@ -213,7 +213,7 @@ spec:
   # Use patchesFrom to patch field from other k8s resource to this object
   - patchesFrom:
       apiVersion: v1
-      kind: ConfigMap
+      kind: Secret
       name: mysql-rds
       namespace: default
       fieldPath: data.password
