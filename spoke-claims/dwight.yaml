@@ -224,6 +224,7 @@ spec:
       kind: Secret
       metadata:
         namespace: wordpress
+        name: password
       data:
         password: sample-value
   providerConfigRef:
