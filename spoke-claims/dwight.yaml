@@ -87,35 +87,35 @@ spec:
     matchLabels:
       provider: crossplane-provider-aws
 
-#The following objects are being deployed to spoke cluster dwight
-# ---
-# apiVersion: kubernetes.crossplane.io/v1alpha1
-# kind: Object
-# metadata:
-#   name: podinfo
-# spec:
-#   forProvider:
-#     manifest:
-#       apiVersion: v1
-#       kind: Namespace
-#       metadata:
-#   providerConfigRef:
-#     name: dwight-kubernetes-provider
-# ---
-# apiVersion: helm.crossplane.io/v1beta1
-# kind: Release
-# metadata:
-#   name: podinfo
-# spec:
-# # rollbackLimit: 3
-#   forProvider:
-#     chart:
-#       name: podinfo
-#       repository: https://stefanprodan.github.io/podinfo
-#       version: 6.2.0
-#     namespace: podinfo
-#   providerConfigRef:
-#     name: dwight-helm-provider
+The following objects are being deployed to spoke cluster dwight
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: Object
+metadata:
+  name: podinfo
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+  providerConfigRef:
+    name: dwight-kubernetes-provider
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: podinfo
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: podinfo
+      repository: https://stefanprodan.github.io/podinfo
+      version: 6.2.0
+    namespace: podinfo
+  providerConfigRef:
+    name: dwight-helm-provider
 # ---
 # apiVersion: kubernetes.crossplane.io/v1alpha1
 # kind: Object
