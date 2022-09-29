@@ -17,6 +17,7 @@ spec:
         spec:
           deletionPolicy: Delete          
           forProvider:
+            acl: private
             serverSideEncryptionConfiguration:
               rules:
                 - applyServerSideEncryptionByDefault:
@@ -46,10 +47,8 @@ spec:
                 - effect: "Allow"
                   action:
                     - "s3:GetObject"
-                    - "s3:PutObject"
                   principal:
-                    awsPrincipals:
-                      - awsAccountId: "950698127059"
+                    allowAnon: true
           providerConfigRef:
             name: default
       patches:

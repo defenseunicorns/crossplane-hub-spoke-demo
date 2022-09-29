@@ -193,12 +193,12 @@ apiVersion: s3bucket.bigbang.dev/v1alpha1
 kind: Bucket
 metadata:
   namespace: default
-  name: test-s3-bucket-us-east-1
+  name: crossplane-hub-spoke-demo
   annotations:
-    crossplane.io/external-name: test-s3-bucket-us-east-1
+    crossplane.io/external-name: crossplane-hub-spoke-demo
 spec:
   parameters:
-    bucketName: test-s3-bucket-us-east-1
+    bucketName: crossplane-hub-spoke-demo
     region: us-east-1
   compositionSelector:
     matchLabels:
