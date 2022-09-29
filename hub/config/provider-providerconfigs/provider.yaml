@@ -8,16 +8,16 @@ spec:
   controllerConfigRef:
     name: aws-config
 ---
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: dwight-provider-kubernetes
-spec:
-  package: "crossplane/provider-kubernetes:main"
----
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: dwight-provider-helm
-spec:
-  package: "crossplane/provider-helm:master"
+# apiVersion: pkg.crossplane.io/v1
+# kind: Provider
+# metadata:
+#   name: dwight-provider-kubernetes
+# spec:
+#   package: "crossplane/provider-kubernetes:main"
+# ---
+# apiVersion: pkg.crossplane.io/v1
+# kind: Provider
+# metadata:
+#   name: dwight-provider-helm
+# spec:
+#   package: "crossplane/provider-helm:master"
