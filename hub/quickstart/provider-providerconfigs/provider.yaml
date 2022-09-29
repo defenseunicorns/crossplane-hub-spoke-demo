@@ -11,13 +11,13 @@ spec:
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-kubernetes
+  name: dwight-provider-kubernetes
 spec:
   package: "crossplane/provider-kubernetes:main"
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
 metadata:
-  name: provider-helm
+  name: dwight-provider-helm
 spec:
   package: "crossplane/provider-helm:master"
