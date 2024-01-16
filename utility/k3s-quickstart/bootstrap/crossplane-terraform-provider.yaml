@@ -1,0 +1,23 @@
+---
+# This is a comment providing general guidance, similar to your original
+# EKS example, but adapted for EC2. Make sure your EC2 role has the
+# permissions required to manage the AWS resources you wish to handle
+# via Crossplane and the Terraform Provider.
+
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-terraform-ec2
+spec:
+  package: xpkg.upbound.io/upbound/provider-terraform:v0.11.0
+  controllerConfigRef:
+    name: aws-config-ec2
+---
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: aws-config-ec2
+spec:
+  podSecurityContext:
+    fsGroup: 2000

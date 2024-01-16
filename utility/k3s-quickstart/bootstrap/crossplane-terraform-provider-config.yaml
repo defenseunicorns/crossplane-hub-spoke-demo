@@ -1,0 +1,16 @@
+apiVersion: tf.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: aws-config-ec2
+spec:
+  credentials:
+    - filename: aws.json
+      source: None
+  configuration: |
+    terraform {
+      backend "kubernetes" {
+        secret_suffix     = "providerconfig-tf-aws-ec2"
+        namespace         = "crossplane-system"
+        in_cluster_config = true
+      }
+    }

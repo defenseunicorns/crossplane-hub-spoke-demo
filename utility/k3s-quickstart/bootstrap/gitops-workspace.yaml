@@ -1,0 +1,29 @@
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: delivery-aws-iac-example
+  annotations:
+    crossplane.io/external-name: delivery-aws-iac-example-workspace
+spec:
+  forProvider:
+    source: Remote
+    module: git::https://github.com/defenseunicorns/delivery-aws-iac//examples/complete?ref=crossplane-test
+    vars:
+    - key: region
+      value: "us-east-2"
+    - key: eks_use_mfa
+      value: "false"
+    - key: vpc_cidr
+      value: "10.200.0.0/16"
+    - key: enable_eks_managed_nodegroups
+      value: "true"
+    - key: enable_self_managed_nodegroups
+      value: "false"
+    planArgs:
+      - "-var-file=fixtures.common.tfvars"
+      - "-var-file=fixtures.insecure.tfvars"
+    applyArgs:
+      - "-var-file=fixtures.common.tfvars"
+      - "-var-file=fixtures.insecure.tfvars"
+  providerConfigRef:
+    name: aws-config-ec2

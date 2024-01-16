@@ -13,109 +13,109 @@ spec:
     matchLabels:
       provider: crossplane-provider-aws
 ---
-apiVersion: infra.bigbang.dev/v1alpha1
-kind: EKSCluster
-metadata:
-  name: crossplane-eks-cluster-dwight
-  namespace: default
-spec:
-  parameters:
-    region: us-east-1
-    k8sVersion: "1.22"
-    subnetMatchLabels:
-      crossplane.io/claim-name: dwight-enclave
-      crossplane.io/claim-namespace: default
-      visibility: public
-  compositionSelector:
-    matchLabels:
-      provider: crossplane-provider-aws
----
-apiVersion: infra.bigbang.dev/v1alpha1
-kind: EKSManagedNodeGroup
-metadata:
-  name: crossplane-eks-cluster-dwight-with-managed-nodegroup
-  namespace: default
-spec:
-  parameters:
-    region: us-east-1
-    clusterNameMatchLabels:
-      crossplane.io/claim-name: crossplane-eks-cluster-dwight
-      crossplane.io/claim-namespace: default
-    diskSize: 20
-    instanceTypes:
-      - t3.medium
-    desiredNodeCount: 3
-    minNodeCount: 3
-    maxNodeCount: 5
-    subnetMatchLabels:
-      crossplane.io/claim-name: dwight-enclave
-      crossplane.io/claim-namespace: default
-      visibility: public
----
-apiVersion: databases.bigbang.dev/v1alpha1
-kind: MySQLChildInstance
-metadata:
-  name: wordpress-mysql-rds
-  namespace: default
-spec:
-  parameters:
-    storageGB: 10
-    region: us-east-1
-    availabilityZone: us-east-1a
-    dbName: wordpressdb
-    dbInstanceClass: db.t3.medium
-    dbSubnetGroupName: dwight-enclave-gq78z-sxpnp
-    vpcId: vpc-0757e67d2aaa72fb7
-  compositionSelector:
-    matchLabels:
-      provider: crossplane-provider-aws
-  writeConnectionSecretToRef:
-    name: mysql-rds
----
-apiVersion: s3bucket.bigbang.dev/v1alpha1
-kind: Bucket
-metadata:
-  namespace: default
-  name: crossplane-hub-spoke-demo
-  annotations:
-    crossplane.io/external-name: crossplane-hub-spoke-demo
-spec:
-  parameters:
-    bucketName: crossplane-hub-spoke-demo
-    region: us-east-1
-  compositionSelector:
-    matchLabels:
-      provider: crossplane-provider-aws
+# apiVersion: infra.bigbang.dev/v1alpha1
+# kind: EKSCluster
+# metadata:
+#   name: crossplane-eks-cluster-dwight
+#   namespace: default
+# spec:
+#   parameters:
+#     region: us-east-1
+#     k8sVersion: "1.22"
+#     subnetMatchLabels:
+#       crossplane.io/claim-name: dwight-enclave
+#       crossplane.io/claim-namespace: default
+#       visibility: public
+#   compositionSelector:
+#     matchLabels:
+#       provider: crossplane-provider-aws
+# ---
+# apiVersion: infra.bigbang.dev/v1alpha1
+# kind: EKSManagedNodeGroup
+# metadata:
+#   name: crossplane-eks-cluster-dwight-with-managed-nodegroup
+#   namespace: default
+# spec:
+#   parameters:
+#     region: us-east-1
+#     clusterNameMatchLabels:
+#       crossplane.io/claim-name: crossplane-eks-cluster-dwight
+#       crossplane.io/claim-namespace: default
+#     diskSize: 20
+#     instanceTypes:
+#       - t3.medium
+#     desiredNodeCount: 3
+#     minNodeCount: 3
+#     maxNodeCount: 5
+#     subnetMatchLabels:
+#       crossplane.io/claim-name: dwight-enclave
+#       crossplane.io/claim-namespace: default
+#       visibility: public
+# ---
+# apiVersion: databases.bigbang.dev/v1alpha1
+# kind: MySQLChildInstance
+# metadata:
+#   name: wordpress-mysql-rds
+#   namespace: default
+# spec:
+#   parameters:
+#     storageGB: 10
+#     region: us-east-1
+#     availabilityZone: us-east-1a
+#     dbName: wordpressdb
+#     dbInstanceClass: db.t3.medium
+#     dbSubnetGroupName: dwight-enclave-gq78z-sxpnp
+#     vpcId: vpc-0757e67d2aaa72fb7
+#   compositionSelector:
+#     matchLabels:
+#       provider: crossplane-provider-aws
+#   writeConnectionSecretToRef:
+#     name: mysql-rds
+# ---
+# apiVersion: s3bucket.bigbang.dev/v1alpha1
+# kind: Bucket
+# metadata:
+#   namespace: default
+#   name: crossplane-hub-spoke-demo
+#   annotations:
+#     crossplane.io/external-name: crossplane-hub-spoke-demo
+# spec:
+#   parameters:
+#     bucketName: crossplane-hub-spoke-demo
+#     region: us-east-1
+#   compositionSelector:
+#     matchLabels:
+#       provider: crossplane-provider-aws
 
-The following objects are being deployed to spoke cluster dwight
----
-apiVersion: kubernetes.crossplane.io/v1alpha1
-kind: Object
-metadata:
-  name: podinfo
-spec:
-  forProvider:
-    manifest:
-      apiVersion: v1
-      kind: Namespace
-      metadata:
-  providerConfigRef:
-    name: dwight-kubernetes-provider
----
-apiVersion: helm.crossplane.io/v1beta1
-kind: Release
-metadata:
-  name: podinfo
-spec:
-# rollbackLimit: 3
-  forProvider:
-    chart:
-      name: podinfo
-      repository: https://stefanprodan.github.io/podinfo
-      version: 6.2.0
-    namespace: podinfo
-  providerConfigRef:
-    name: dwight-helm-provider
+# The following objects are being deployed to spoke cluster dwight
+# ---
+# apiVersion: kubernetes.crossplane.io/v1alpha1
+# kind: Object
+# metadata:
+#   name: podinfo
+# spec:
+#   forProvider:
+#     manifest:
+#       apiVersion: v1
+#       kind: Namespace
+#       metadata:
+#   providerConfigRef:
+#     name: dwight-kubernetes-provider
+# ---
+# apiVersion: helm.crossplane.io/v1beta1
+# kind: Release
+# metadata:
+#   name: podinfo
+# spec:
+# # rollbackLimit: 3
+#   forProvider:
+#     chart:
+#       name: podinfo
+#       repository: https://stefanprodan.github.io/podinfo
+#       version: 6.2.0
+#     namespace: podinfo
+#   providerConfigRef:
+#     name: dwight-helm-provider
 # ---
 # apiVersion: kubernetes.crossplane.io/v1alpha1
 # kind: Object
